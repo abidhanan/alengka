@@ -1,0 +1,7 @@
+# Vercel (token & konfigurasi lokal)
+.vercel
+.env*
+
+# File sumber mentah & alat bantu lokal
+_src/
+.claude/

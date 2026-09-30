@@ -1,0 +1,6 @@
+# File sumber & alat bantu, tidak perlu di-upload
+_src
+.claude
+README.md
+.env*
+.gitignore
