@@ -2,9 +2,15 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "redirects": [
     {
-      "source": "/:path*",
+      "source": "/",
       "has": [{ "type": "host", "value": "alengka-home-living.vercel.app" }],
-      "destination": "https://alengka.vercel.app/:path*",
+      "destination": "https://alengka.vercel.app/",
+      "permanent": true
+    },
+    {
+      "source": "/:path+",
+      "has": [{ "type": "host", "value": "alengka-home-living.vercel.app" }],
+      "destination": "https://alengka.vercel.app/:path+",
       "permanent": true
     }
   ]
