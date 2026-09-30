@@ -3,14 +3,24 @@
   "redirects": [
     {
       "source": "/",
-      "has": [{ "type": "host", "value": "alengka-home-living.vercel.app" }],
-      "destination": "https://alengka.vercel.app/",
+      "has": [
+        {
+          "type": "host",
+          "value": "(?<host>alengka(-home-living)?\\.vercel\\.app|www\\.alengka\\.web\\.id)"
+        }
+      ],
+      "destination": "https://alengka.web.id/",
       "permanent": true
     },
     {
       "source": "/:path+",
-      "has": [{ "type": "host", "value": "alengka-home-living.vercel.app" }],
-      "destination": "https://alengka.vercel.app/:path+",
+      "has": [
+        {
+          "type": "host",
+          "value": "(?<host>alengka(-home-living)?\\.vercel\\.app|www\\.alengka\\.web\\.id)"
+        }
+      ],
+      "destination": "https://alengka.web.id/:path+",
       "permanent": true
     }
   ]
