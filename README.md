@@ -16,12 +16,16 @@ Website katalog furnitur statis (HTML + CSS + JavaScript murni, tanpa build tool
 
 ## Deploy ke Vercel
 
-Website di-hosting di Vercel (project `alengka-home-living`, domain `alengka.vercel.app`).
-Setelah mengubah file, jalankan dari folder project:
+Website di-hosting di Vercel (project `alengka-home-living`, domain `alengka.vercel.app`)
+dan terhubung ke repo GitHub ini. **Setiap push ke branch `main` otomatis di-deploy.**
 
 ```bash
-npx vercel deploy --prod
+git add -A
+git commit -m "pesan perubahan"
+git push
 ```
+
+Deploy manual tanpa GitHub (opsional): `npx vercel deploy --prod`.
 
 - `.vercelignore` mengatur file yang tidak ikut di-upload.
 - `vercel.json` mengalihkan alamat lama `alengka-home-living.vercel.app` ke `alengka.vercel.app`.
