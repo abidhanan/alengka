@@ -94,33 +94,25 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   transition: color .4s var(--ease), background-color .4s var(--ease), border-color .4s var(--ease), transform .4s var(--ease), box-shadow .4s var(--ease);
   white-space: nowrap;
 }
-.btn::before { /* efek "fill" halus saat hover */
-  content: ""; position: absolute; inset: 0; z-index: -1;
-  background: var(--terra);
-  transform: translateY(101%);
-  transition: transform .5s var(--ease);
-  border-radius: inherit;
+.btn::before { /* kilau yang menyapu tombol saat hover (warna tombol tetap) */
+  content: ""; position: absolute; top: 0; bottom: 0; left: 0; width: 60%;
+  background: linear-gradient(105deg, transparent 20%, rgba(255,255,255,.38) 50%, transparent 80%);
+  transform: translateX(-120%) skewX(-18deg);
+  pointer-events: none;
 }
-.btn:hover::before { transform: translateY(0); }
-.btn:hover { transform: translateY(-2px); box-shadow: var(--shadow); color: var(--white); }
-.btn:active { transform: translateY(0); }
+.btn:hover::before { transform: translateX(220%) skewX(-18deg); transition: transform .8s var(--ease); }
+.btn:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+.btn:active { transform: translateY(0) scale(.97); box-shadow: var(--shadow-sm); transition-duration: .15s; }
 .btn .ico { transition: transform .4s var(--ease); }
-.btn:hover .ico use[href="#i-arrow"], .btn:hover svg:last-child { transform: translateX(3px); }
+.btn:hover .ico { transform: scale(1.12) rotate(-8deg); }
+.btn:hover .ico--arrow { transform: translateX(4px); }
 
 .btn--primary { --bg: var(--green); --fg: var(--beige); }
 .btn--light { --bg: var(--beige); --fg: var(--green); }
-.btn--ghost { --bg: transparent; --fg: var(--white); border-color: rgba(255,255,255,.55); backdrop-filter: blur(6px); }
-.btn--ghost::before { background: var(--wa); }
 .btn--outline { --bg: transparent; --fg: var(--green); border-color: var(--green); }
-.btn--outline::before { background: var(--green); }
+.btn--outline::before { background: linear-gradient(105deg, transparent 20%, rgba(31,58,46,.14) 50%, transparent 80%); }
 .btn--sm { padding: 10px 20px; font-size: 14px; }
 .btn--lg { padding: 19px 36px; font-size: 16px; }
-.btn--wa {
-  --bg: var(--green-soft); --fg: var(--green);
-  padding: 10px 16px; font-size: 13px; gap: 8px;
-}
-.btn--wa::before { background: var(--wa); }
-.btn--wa .ico { width: 16px; height: 16px; }
 
 /* ---------- Logo ---------- */
 .logo { display: inline-flex; align-items: center; gap: 12px; color: var(--ink); }
@@ -176,7 +168,6 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 }
 .nav__link:hover, .nav__link.is-active { opacity: 1; }
 .nav__link:hover::after, .nav__link.is-active::after { transform: scaleX(1); transform-origin: left; }
-.header:not(.is-scrolled) .nav__cta { --bg: rgba(255,255,255,.14); --fg: var(--white); border-color: rgba(255,255,255,.4); backdrop-filter: blur(6px); }
 
 .burger { display: none; width: 44px; height: 44px; margin-right: -11px; position: relative; z-index: 60; }
 .burger span {
@@ -249,13 +240,7 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   transition: background-color .5s var(--ease);
   overflow: hidden;
 }
-.feature::before {
-  content: ""; position: absolute; left: 0; top: 0; width: 100%; height: 3px;
-  background: var(--terra); transform: scaleX(0); transform-origin: left;
-  transition: transform .6s var(--ease);
-}
 .feature:hover { background: var(--beige); }
-.feature:hover::before { transform: scaleX(1); }
 .feature__icon {
   display: grid; place-items: center;
   width: 68px; height: 68px; border-radius: 50%;
@@ -295,18 +280,22 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   min-height: 400px;
 }
 .card {
-  position: relative;
+  display: flex;
+  animation: cardIn .7s var(--ease) both;
+  animation-delay: calc(var(--i, 0) * 60ms);
+}
+@keyframes cardIn { from { opacity: 0; transform: translateY(24px); } }
+/* Yang terangkat hanya .card__inner; .card tetap diam sehingga area hover stabil (tidak getar di tepi bawah) */
+.card__inner {
+  position: relative; flex: 1;
   display: flex; flex-direction: column;
   background: var(--ivory);
   border-radius: var(--radius);
   overflow: hidden;
   box-shadow: var(--shadow-sm);
   transition: transform .55s var(--ease), box-shadow .55s var(--ease);
-  animation: cardIn .7s var(--ease) both;
-  animation-delay: calc(var(--i, 0) * 60ms);
 }
-@keyframes cardIn { from { opacity: 0; transform: translateY(24px); } }
-.card:hover { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
+.card:hover .card__inner { transform: translateY(-8px); box-shadow: var(--shadow-lg); }
 
 .card__open {
   position: absolute; inset: 0; z-index: 2;
@@ -320,7 +309,8 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   transition: background-color .35s var(--ease), color .35s var(--ease), transform .35s var(--ease), box-shadow .35s var(--ease);
 }
 .card__wa svg { width: 22px; height: 22px; }
-.card__wa:hover { background: var(--wa); color: var(--white); transform: translateY(-2px) scale(1.05); box-shadow: 0 10px 20px -8px rgba(37,211,102,.6); }
+.card__wa:hover { transform: translateY(-3px) scale(1.1) rotate(-8deg); box-shadow: var(--shadow); }
+.card__wa:active { transform: scale(.94); transition-duration: .15s; }
 .card__media {
   position: relative; aspect-ratio: 4 / 4.6; overflow: hidden;
   background: linear-gradient(135deg, var(--sand), var(--beige));
@@ -405,7 +395,7 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 
 /* ---------- Cara Pesan ---------- */
 .steps { background: var(--ivory); }
-.steps__list { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; counter-reset: step; }
+.steps__list { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); gap: 32px; }
 .step { position: relative; text-align: center; padding: 0 8px; }
 .step__icon {
   position: relative; display: grid; place-items: center;
@@ -415,12 +405,6 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 }
 .step__icon svg { width: 36px; height: 36px; }
 .step:hover .step__icon { background: var(--green); color: var(--beige); border-color: var(--green); transform: translateY(-6px); box-shadow: var(--shadow); }
-.step__num {
-  position: absolute; top: -2px; right: -2px;
-  display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%;
-  background: var(--terra); color: var(--white); font-size: 13px; font-weight: 700;
-  box-shadow: 0 0 0 4px var(--ivory);
-}
 .step h3 { font-family: var(--font-display); font-size: 26px; font-weight: 600; color: var(--ink); margin-bottom: 10px; }
 .step p { font-size: 15px; color: var(--muted); max-width: 250px; margin-inline: auto; }
 
@@ -452,7 +436,13 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   height: 60px; padding: 0 17px; border-radius: 100px;
   background: var(--wa); color: var(--white);
   box-shadow: 0 12px 30px -8px rgba(37,211,102,.6);
-  transition: gap .45s var(--ease), padding .45s var(--ease), transform .4s var(--ease);
+  transition: gap .45s var(--ease), padding .45s var(--ease), transform .4s var(--ease), opacity .4s var(--ease), visibility 0s;
+}
+/* disembunyikan saat berada di section hero & kontak (diatur main.js) */
+.wa-float.is-hidden {
+  opacity: 0; visibility: hidden; pointer-events: none;
+  transform: translateY(16px) scale(.9);
+  transition: opacity .4s var(--ease), transform .4s var(--ease), visibility 0s linear .4s;
 }
 .wa-float::before {
   content: ""; position: absolute; inset: 0; border-radius: inherit; z-index: -1;
@@ -461,7 +451,6 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 @keyframes waPulse { 0% { transform: scale(1); opacity: .6; } 100% { transform: scale(1.5); opacity: 0; } }
 .wa-float svg { width: 26px; height: 26px; }
 .wa-float__label { max-width: 0; overflow: hidden; white-space: nowrap; font-weight: 700; font-size: 15px; transition: max-width .45s var(--ease); }
-.wa-float { translate: 0 var(--lift, 0px); }
 .wa-float:hover { gap: 10px; padding: 0 24px 0 20px; transform: translateY(-3px); }
 .wa-float:hover .wa-float__label { max-width: 120px; }
 
@@ -620,7 +609,6 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   .nav__link { display: block; padding: 11px 14px; border-radius: 12px; text-align: center; font-size: 16px; opacity: 1; transition: background-color .25s, color .25s; }
   .nav__link::after { display: none; }
   .nav__link:hover, .nav__link.is-active { background: var(--beige); color: var(--green); }
-  .nav__cta, .header:not(.is-scrolled) .nav__cta { --bg: var(--green); --fg: var(--beige); border-color: transparent; backdrop-filter: none; width: min(420px, 100%); }
 
   /* logo & tombol tutup tetap terlihat di atas panel */
   .header .logo, .burger { position: relative; z-index: 60; transition: color .3s; }
@@ -690,7 +678,7 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   .tab { flex-shrink: 0; scroll-snap-align: start; padding: 11px 18px; font-size: 14px; }
 
   .products { gap: 14px; }
-  .card { border-radius: 14px; }
+  .card__inner { border-radius: 14px; }
   .card__body { padding: 14px 12px 14px 14px; }
   .card__title { margin-bottom: 14px; font-size: 17.5px; line-height: 1.22; }
   .card__foot { gap: 6px; padding-top: 12px; }
@@ -743,7 +731,6 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   }
   .step__icon { width: 64px; height: 64px; margin: 0; grid-row: span 2; }
   .step__icon svg { width: 28px; height: 28px; }
-  .step__num { width: 24px; height: 24px; font-size: 12px; }
   .step h3 { font-size: 22px; margin: 4px 0 4px; }
   .step p { max-width: none; margin: 0; font-size: 14.5px; }
 

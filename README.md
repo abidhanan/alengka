@@ -94,7 +94,7 @@ dengan `<img src="assets/images/logo.webp" class="logo__img" alt="Alengka Home L
 
 ## Nomor WhatsApp
 
-Nomor `6288985099829` ada di `index.html` (link `wa.me`) dan di `assets/js/main.js`
+Nomor `62882007496566` ada di `index.html` (link `wa.me`) dan di `assets/js/main.js`
 (`WA_NUMBER`). Gunakan fitur *Find & Replace* bila ingin mengganti.
 
 ## Daftar File Foto Produk

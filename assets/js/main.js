@@ -4,7 +4,7 @@
 (function () {
   'use strict';
 
-  var WA_NUMBER = '6288985099829';
+  var WA_NUMBER = '62882007496566';
   var PAGE_SIZE = 8;
   var CAT_LABEL = {
     kursi: 'Kursi & Stool',
@@ -31,16 +31,19 @@
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
 
-  /* ---------- Tombol WA melayang tidak menutupi footer ---------- */
+  /* ---------- Tombol WA melayang: sembunyi saat di section hero & kontak (dan footer) ---------- */
   var waFloat = $('.wa-float');
-  var footerEl = $('.footer');
-  var liftFloat = function () {
-    var over = window.innerHeight - footerEl.getBoundingClientRect().top;
-    waFloat.style.setProperty('--lift', over > 0 ? -over + 'px' : '0px');
+  var heroEl = $('#beranda');
+  var kontakEl = $('#kontak');
+  var toggleFloat = function () {
+    var y = window.innerHeight - 50; // kira-kira posisi tombol di layar
+    var inHero = heroEl.getBoundingClientRect().bottom > y;
+    var inKontak = kontakEl.getBoundingClientRect().top < y;
+    waFloat.classList.toggle('is-hidden', inHero || inKontak);
   };
-  liftFloat();
-  window.addEventListener('scroll', liftFloat, { passive: true });
-  window.addEventListener('resize', liftFloat);
+  toggleFloat();
+  window.addEventListener('scroll', toggleFloat, { passive: true });
+  window.addEventListener('resize', toggleFloat);
 
   /* ---------- Menu mobile ---------- */
   var burger = $('#burger');
@@ -129,6 +132,7 @@
     var msg = waMsg(p);
     return '' +
       '<article class="card" style="--i:' + (i % PAGE_SIZE) + '">' +
+       '<div class="card__inner">' +
         '<button class="card__open" data-open="' + p.id + '" aria-label="Lihat detail ' + esc(p.name) + '"></button>' +
         '<div class="card__media" data-placeholder="' + esc(p.name) + '">' +
           '<img src="' + esc(p.img) + '" alt="' + esc(p.name) + ' | Alengka Home Living" loading="lazy" decoding="async" width="600" height="690">' +
@@ -142,6 +146,7 @@
             '</a>' +
           '</div>' +
         '</div>' +
+       '</div>' +
       '</article>';
   };
 
