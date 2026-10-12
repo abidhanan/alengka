@@ -88,11 +88,17 @@
     if (nav.classList.contains('is-open') && Math.abs(window.scrollY - menuScrollY) > 60) setMenu(false);
   }, { passive: true });
 
-  /* ---------- Scroll tepat ke section (tidak tertutup header) ---------- */
+  /* ---------- Scroll tepat ke section (tidak tertutup header), tanpa menambah #... di URL ---------- */
   var HEADER_H = 68; // tinggi header saat sudah di-scroll
   var targetTop = function (el) {
     return el.id === 'beranda' ? 0 : Math.round(el.getBoundingClientRect().top + window.scrollY - HEADER_H + 1);
   };
+  // link lama berisi #bagian: tetap lompat ke bagian itu, lalu bersihkan URL
+  if (location.hash && history.replaceState) {
+    var initialEl = document.getElementById(location.hash.slice(1));
+    history.replaceState(null, '', location.pathname + location.search);
+    if (initialEl) window.addEventListener('load', function () { window.scrollTo({ top: targetTop(initialEl), behavior: 'instant' }); });
+  }
   document.addEventListener('click', function (e) {
     var a = e.target.closest('a[href^="#"]');
     if (!a) return;
@@ -103,7 +109,6 @@
     setDrop(false);
     if (nav.classList.contains('is-open')) setMenu(false);
     window.scrollTo({ top: targetTop(el), behavior: 'smooth' });
-    if (history.replaceState) history.replaceState(null, '', hash);
   });
 
   /* ---------- Menu aktif sesuai section yang terlihat ---------- */
