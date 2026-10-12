@@ -91,7 +91,7 @@
   /* ---------- Scroll tepat ke section (tidak tertutup header), tanpa menambah #... di URL ---------- */
   var HEADER_H = 68; // tinggi header saat sudah di-scroll
   var targetTop = function (el) {
-    return el.id === 'beranda' ? 0 : Math.round(el.getBoundingClientRect().top + window.scrollY - HEADER_H + 1);
+    return el.id === 'beranda' ? 0 : el.getBoundingClientRect().top + window.scrollY - HEADER_H;
   };
   // link lama berisi #bagian: tetap lompat ke bagian itu, lalu bersihkan URL
   if (location.hash && history.replaceState) {

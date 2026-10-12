@@ -71,14 +71,10 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 @media (min-width: 768px) {
   .section--full {
     display: flex; flex-direction: column; justify-content: center;
-    min-height: calc(100vh - 68px); min-height: calc(100svh - 68px);
+    /* +2px: cadangan pembulatan piksel agar section berikutnya tidak "bocor" di bawah layar */
+    min-height: calc(100vh - 66px); min-height: calc(100svh - 66px);
   }
   .section--full > .container { width: min(1240px, 100% - 48px); }
-  /* Custom Order: kotak ikut memenuhi layar, isi di tengah */
-  .custom > .container { flex: 1; display: flex; }
-  .custom .custom-cta { flex: 1; flex-direction: column; justify-content: center; text-align: center; gap: 36px; }
-  .custom .custom-cta p:not(.eyebrow) { margin-inline: auto; }
-  .custom .custom-cta h2 { font-size: clamp(36px, 4.6vw, 64px); margin-bottom: 16px; }
 }
 .section__head { max-width: 680px; margin: 0 auto clamp(24px, 4vh, 40px); text-align: center; }
 .section__title {
@@ -421,20 +417,16 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 .catalog__more { display: flex; justify-content: center; margin-top: 40px; }
 .catalog__more[hidden] { display: none; }
 
-.custom { background: var(--green); }
-.custom-cta {
-  display: flex; align-items: center; justify-content: space-between; gap: 40px;
-  padding: clamp(36px, 8vh, 88px) clamp(32px, 5vw, 72px);
-  border-radius: calc(var(--radius) + 6px);
-  /* sama dengan latar section Pemesanan & Konsultasi (.closing) */
+/* Custom Order: tanpa kotak, latar sama dengan section Pemesanan & Konsultasi (.closing) */
+.custom {
   background:
     radial-gradient(ellipse at 50% 120%, rgba(181,101,62,.14), transparent 60%),
     var(--beige);
-  color: var(--muted);
+  text-align: center;
 }
-.custom-cta h2 { font-family: var(--font-display); font-size: clamp(30px, 3.6vw, 52px); font-weight: 600; line-height: 1.15; color: var(--ink); margin-bottom: 10px; }
-.custom-cta .eyebrow { margin-bottom: 12px; }
-.custom-cta p:not(.eyebrow) { max-width: 600px; font-size: 17px; }
+.custom__inner { max-width: 900px; margin-inline: auto; display: flex; flex-direction: column; align-items: center; }
+.custom__title { font-family: var(--font-display); font-weight: 600; font-size: clamp(38px, 5.4vw, 66px); line-height: 1.06; color: var(--ink); }
+.custom__text { margin: 24px auto 36px; max-width: 600px; font-size: 17px; color: var(--muted); }
 
 /* ---------- Katalog Warna ---------- */
 .colors {
@@ -716,7 +708,6 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 
   .features__grid { grid-template-columns: repeat(2, 1fr); }
   .products { grid-template-columns: repeat(2, 1fr); }
-  .custom-cta { flex-direction: column; align-items: flex-start; }
 
   .colors__inner { grid-template-columns: 1fr; }
   .colors__gallery { grid-template-rows: repeat(6, 64px); }
@@ -775,8 +766,8 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   .card__wa { width: 36px; height: 36px; }
   .card__wa svg { width: 18px; height: 18px; }
 
-  .custom-cta { align-items: center; text-align: center; }
-  .custom-cta p:not(.eyebrow) { margin-inline: auto; }
+  .custom__title { font-size: 34px; }
+  .custom__text { margin: 18px auto 30px; font-size: 15.5px; }
 
   .colors__gallery { gap: 10px; grid-template-rows: repeat(6, 52px); }
 
