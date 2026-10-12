@@ -248,6 +248,7 @@
     media.classList.remove('is-missing');
     img.onerror = function () { media.classList.add('is-missing'); };
     img.src = photos[pdPhoto];
+    media.style.setProperty('--pd-bg', 'url("' + photos[pdPhoto] + '")');
     img.setAttribute('data-lightbox', photos[pdPhoto]);
     $('#pdCounter').textContent = (pdPhoto + 1) + ' / ' + photos.length;
   };
