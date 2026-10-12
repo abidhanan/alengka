@@ -46,7 +46,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Manrope:wght@400;500;600;700&display=swap">
   <link rel="preload" as="image" href="assets/images/hero-bg.webp" type="image/webp" fetchpriority="high">
-  <link rel="stylesheet" href="assets/css/style.css?v=19">
+  <link rel="stylesheet" href="assets/css/style.css?v=20">
 
   <!-- ===== Data terstruktur untuk Google ===== -->
   <script type="application/ld+json">
@@ -105,7 +105,17 @@
         <ul class="nav__list">
           <li><a class="nav__link is-active" href="#beranda">Beranda</a></li>
           <li><a class="nav__link" href="#keunggulan">Keunggulan</a></li>
-          <li><a class="nav__link" href="#katalog">Katalog</a></li>
+          <li class="nav__drop" id="navDrop">
+            <button class="nav__link nav__drop-toggle" id="navDropToggle" type="button" aria-expanded="false" aria-controls="navSub">
+              Katalog
+              <svg class="nav__chev" viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" d="M6 9l6 6 6-6"/></svg>
+            </button>
+            <ul class="nav__sub" id="navSub">
+              <li><a class="nav__sublink" href="#katalog">Produk</a></li>
+              <li><a class="nav__sublink" href="#warna">Warna</a></li>
+            </ul>
+          </li>
+          <li><a class="nav__link" href="#custom">Custom Order</a></li>
           <li><a class="nav__link" href="#cara-pesan">Cara Pesan</a></li>
           <li><a class="nav__link" href="#kontak">Kontak</a></li>
         </ul>
@@ -142,7 +152,7 @@
     <!-- =====================================================
          STRIP TEKS BERJALAN
          ===================================================== -->
-    <section class="segments" id="segmen" aria-label="77+ Model Furnitur, 200+ Pilihan Warna, 150 kg Kapasitas Beban, 100% Bisa Custom">
+    <section class="segments" id="segmen" data-nav="light" aria-label="77+ Model Furnitur, 200+ Pilihan Warna, 150 kg Kapasitas Beban, 100% Bisa Custom">
       <div class="segments__track" aria-hidden="true">
         <div class="segments__group">
           <span><strong>77+</strong> Model Furnitur</span><i>✦</i>
@@ -258,18 +268,6 @@
             <button class="btn btn--outline" id="loadMore" type="button">Tampilkan Lebih Banyak</button>
           </div>
         </div>
-
-        <aside class="custom-cta reveal" aria-label="Custom order">
-          <div>
-            <p class="eyebrow eyebrow--light">Custom Order</p>
-            <h3>Butuh desain, ukuran, atau warna khusus?</h3>
-            <p>Kirimkan foto referensi Anda, tim kami bantu wujudkan, lengkap dengan penawaran harga terbaik untuk proyek Anda.</p>
-          </div>
-          <a class="btn btn--light" href="https://wa.me/62882007496566?text=Halo%20Alengka%20Home%20Living%2C%20saya%20ingin%20pesan%20desain%20custom." target="_blank" rel="noopener">
-            <svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg>
-            Kirim Referensi
-          </a>
-        </aside>
       </div>
     </section>
 
@@ -277,7 +275,7 @@
          KATALOG WARNA
          Foto: assets/images/katalog-warna-*.webp, contoh-model-warna.webp
          ===================================================== -->
-    <section class="section colors" id="warna" aria-labelledby="warna-title">
+    <section class="section colors" id="warna" data-nav="light" aria-labelledby="warna-title">
       <div class="container colors__inner">
         <div class="colors__text reveal">
           <p class="eyebrow eyebrow--light">Katalog Warna</p>
@@ -302,6 +300,25 @@
             <img src="assets/images/katalog-warna-200-hal2.webp" alt="Katalog 200 warna cat besi halaman 2" width="1055" height="1491" loading="lazy" data-lightbox="assets/images/katalog-warna-200-hal2.webp" data-caption="Katalog 200 Warna Cat Besi Hal. 2">
             <figcaption>200 Warna Cat · Hal. 2</figcaption>
           </figure>
+        </div>
+      </div>
+    </section>
+
+    <!-- =====================================================
+         CUSTOM ORDER
+         ===================================================== -->
+    <section class="section custom" id="custom" aria-labelledby="custom-title">
+      <div class="container">
+        <div class="custom-cta reveal">
+          <div>
+            <p class="eyebrow eyebrow--light">Custom Order</p>
+            <h2 id="custom-title">Butuh desain, ukuran, atau warna khusus?</h2>
+            <p>Kirimkan foto referensi Anda, tim kami bantu wujudkan, lengkap dengan penawaran harga terbaik untuk proyek Anda.</p>
+          </div>
+          <a class="btn btn--light" href="https://wa.me/62882007496566?text=Halo%20Alengka%20Home%20Living%2C%20saya%20ingin%20pesan%20desain%20custom." target="_blank" rel="noopener">
+            <svg class="ico" aria-hidden="true"><use href="#i-wa"/></svg>
+            Kirim Referensi
+          </a>
         </div>
       </div>
     </section>
@@ -373,7 +390,7 @@
   <!-- =====================================================
        FOOTER
        ===================================================== -->
-  <footer class="footer">
+  <footer class="footer" data-nav="light">
     <div class="container">
       <div class="footer__top">
         <a class="logo logo--light footer__logo" href="#beranda" aria-label="Alengka Home Living, ke beranda">
@@ -445,7 +462,7 @@
   </div>
 
   <!-- ===== Script ===== -->
-  <script src="assets/js/products.js?v=19"></script>
-  <script src="assets/js/main.js?v=19"></script>
+  <script src="assets/js/products.js?v=20"></script>
+  <script src="assets/js/main.js?v=20"></script>
 </body>
 </html>

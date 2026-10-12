@@ -25,11 +25,23 @@
   };
   var waLink = function (text) { return 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(text); };
 
-  /* ---------- Header: efek saat scroll ---------- */
+  /* ---------- Header: transparan di hero, lalu warnanya kontras dengan section di belakangnya ---------- */
   var header = $('#header');
-  var onScroll = function () { header.classList.toggle('is-scrolled', window.scrollY > 40); };
+  var heroSec = $('#beranda');
+  var themed = $$('main > section, .footer');
+  var onScroll = function () {
+    var mid = header.offsetHeight + 2; // tepat di bawah garis navbar
+    header.classList.toggle('is-scrolled', heroSec.getBoundingClientRect().bottom <= mid);
+    var behind = null;
+    themed.forEach(function (sec) {
+      var r = sec.getBoundingClientRect();
+      if (r.top <= mid && r.bottom > mid) behind = sec;
+    });
+    header.classList.toggle('is-light', !!behind && behind.getAttribute('data-nav') === 'light');
+  };
   onScroll();
   window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
 
   /* ---------- Tombol WA melayang: sembunyi saat di section hero & kontak (dan footer) ---------- */
   var waFloat = $('.wa-float');
@@ -49,7 +61,18 @@
   var burger = $('#burger');
   var nav = $('#nav');
   var menuScrollY = 0;
+  var drop = $('#navDrop');
+  var dropBtn = $('#navDropToggle');
+  var setDrop = function (open) {
+    drop.classList.toggle('is-open', open);
+    dropBtn.setAttribute('aria-expanded', open);
+  };
+  dropBtn.addEventListener('click', function () { setDrop(!drop.classList.contains('is-open')); });
+  document.addEventListener('click', function (e) {
+    if (drop.classList.contains('is-open') && !e.target.closest('#navDrop')) setDrop(false);
+  });
   var setMenu = function (open) {
+    if (!open) setDrop(false);
     menuScrollY = window.scrollY;
     nav.classList.toggle('is-open', open);
     burger.classList.toggle('is-open', open);
@@ -77,14 +100,15 @@
     var el = hash.length > 1 && document.querySelector(hash);
     if (!el) return;
     e.preventDefault();
+    setDrop(false);
     if (nav.classList.contains('is-open')) setMenu(false);
     window.scrollTo({ top: targetTop(el), behavior: 'smooth' });
     if (history.replaceState) history.replaceState(null, '', hash);
   });
 
   /* ---------- Menu aktif sesuai section yang terlihat ---------- */
-  var links = $$('.nav__link');
-  var spySections = ['beranda', 'keunggulan', 'katalog', 'cara-pesan', 'kontak']
+  var links = $$('.nav__link[href], .nav__sublink');
+  var spySections = ['beranda', 'keunggulan', 'katalog', 'warna', 'custom', 'cara-pesan', 'kontak']
     .map(function (id) { return document.getElementById(id); }).filter(Boolean);
   var updateActive = function () {
     var line = window.scrollY + HEADER_H + window.innerHeight * 0.3;
@@ -93,6 +117,7 @@
     // di dasar halaman, aktifkan section terakhir
     if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2) current = spySections[spySections.length - 1];
     links.forEach(function (l) { l.classList.toggle('is-active', l.getAttribute('href') === '#' + current.id); });
+    dropBtn.classList.toggle('is-active', current.id === 'katalog' || current.id === 'warna');
   };
   updateActive();
   window.addEventListener('scroll', updateActive, { passive: true });
@@ -314,6 +339,7 @@
     if (e.key !== 'Escape') return;
     if (!lb.hidden) closeLb();
     else if (!pd.hidden) closeDetail();
+    else if (drop.classList.contains('is-open') && !nav.classList.contains('is-open')) { setDrop(false); dropBtn.focus(); }
     else if (nav.classList.contains('is-open')) setMenu(false);
   });
 })();
