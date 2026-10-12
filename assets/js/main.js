@@ -239,6 +239,8 @@
   var pdPhoto = 0;
   var pdLastFocus = null;
   var photosOf = function (p) { return p.images && p.images.length ? p.images : [p.img]; };
+  // detail & lightbox memakai foto utuh (tidak dipotong persegi)
+  var fullOf = function (src) { return src.replace('/produk/', '/produk-full/'); };
 
   var showPhoto = function (i) {
     var photos = photosOf(pdCur);
@@ -246,10 +248,18 @@
     var img = $('#pdImg');
     var media = $('#pdMedia');
     media.classList.remove('is-missing');
-    img.onerror = function () { media.classList.add('is-missing'); };
-    img.src = photos[pdPhoto];
-    media.style.setProperty('--pd-bg', 'url("' + photos[pdPhoto] + '")');
-    img.setAttribute('data-lightbox', photos[pdPhoto]);
+    var full = fullOf(photos[pdPhoto]);
+    img.onerror = function () {
+      // foto utuh belum ada -> pakai foto card; bila tetap gagal tampilkan placeholder
+      if (img.src.indexOf('/produk-full/') > -1) img.src = photos[pdPhoto];
+      else media.classList.add('is-missing');
+    };
+    img.onload = function () {
+      if (img.naturalWidth) media.style.setProperty('--pd-ar', img.naturalWidth + ' / ' + img.naturalHeight);
+    };
+    img.src = full;
+    media.style.setProperty('--pd-bg', 'url("' + full + '")');
+    img.setAttribute('data-lightbox', full);
     $('#pdCounter').textContent = (pdPhoto + 1) + ' / ' + photos.length;
   };
 

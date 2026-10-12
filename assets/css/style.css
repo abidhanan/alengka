@@ -730,9 +730,14 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
     border-radius: 22px 22px 0 0;
     transform: translateY(100%);
   }
-  .pd__media { height: 36vh; height: 36svh; width: 100%; }
-  .pd__scroll { padding: 20px 20px 16px; }
-  .pd__foot { padding: 14px 20px calc(16px + env(safe-area-inset-bottom)); }
+  /* HP: foto utuh mengikuti rasio aslinya; foto + info digulir bersama,
+     tombol tutup & tombol WhatsApp tetap terlihat */
+  .pd__panel { display: block; overflow-y: auto; overscroll-behavior: contain; -webkit-overflow-scrolling: touch; }
+  .pd__close { position: sticky; display: block; margin: 12px 12px -52px auto; }
+  .pd__media { aspect-ratio: var(--pd-ar, 1); max-height: 72vh; max-height: 72svh; width: 100%; }
+  .pd__info { display: block; }
+  .pd__scroll { overflow: visible; padding: 20px 20px 16px; }
+  .pd__foot { position: sticky; bottom: 0; z-index: 2; padding: 14px 20px calc(16px + env(safe-area-inset-bottom)); }
   .pd__cat, .pd__title { padding-right: 0; }
   .pd__cat { margin-bottom: 6px; }
   .pd__title { font-size: 26px; }
