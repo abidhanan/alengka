@@ -74,16 +74,11 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
     min-height: calc(100vh - 68px); min-height: calc(100svh - 68px);
   }
   .section--full > .container { width: min(1240px, 100% - 48px); }
-  /* Custom Order: kotak hijau ikut memenuhi layar, isi di tengah */
+  /* Custom Order: kotak ikut memenuhi layar, isi di tengah */
   .custom > .container { flex: 1; display: flex; }
   .custom .custom-cta { flex: 1; flex-direction: column; justify-content: center; text-align: center; gap: 36px; }
   .custom .custom-cta p:not(.eyebrow) { margin-inline: auto; }
-  .custom .custom-cta::before { /* cahaya hangat halus di sudut */
-  content: ""; position: absolute; inset: 0; pointer-events: none;
-  background: radial-gradient(ellipse at 85% 110%, rgba(181,101,62,.35), transparent 55%), radial-gradient(ellipse at 10% -10%, rgba(230,201,168,.12), transparent 50%);
-}
-.custom-cta > * { position: relative; }
-.custom-cta h2 { font-size: clamp(36px, 4.6vw, 64px); margin-bottom: 16px; }
+  .custom .custom-cta h2 { font-size: clamp(36px, 4.6vw, 64px); margin-bottom: 16px; }
 }
 .section__head { max-width: 680px; margin: 0 auto clamp(24px, 4vh, 40px); text-align: center; }
 .section__title {
@@ -222,19 +217,13 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   .nav__drop:hover .nav__chev { transform: rotate(180deg); }
 }
 .nav__sublink {
-  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  display: flex; align-items: center; justify-content: center;
   padding: 12px 18px; border-radius: 11px;
   font-size: 15px; font-weight: 600; color: var(--text);
-  transition: background-color .3s var(--ease), color .3s var(--ease), padding .3s var(--ease);
-}
-.nav__sublink::after { /* panah kecil yang muncul saat hover */
-  content: "\2192"; font-weight: 500;
-  opacity: 0; transform: translateX(-8px);
-  transition: opacity .3s var(--ease), transform .3s var(--ease);
+  transition: background-color .3s var(--ease), color .3s var(--ease);
 }
 .nav__sublink.is-active { background: var(--beige); color: var(--green); }
-.nav__sublink:hover { background: var(--green); color: var(--beige); padding-left: 22px; }
-.nav__sublink:hover::after { opacity: 1; transform: none; }
+.nav__sublink:hover { background: var(--green); color: var(--beige); }
 
 .burger { display: none; width: 44px; height: 44px; margin-right: -11px; position: relative; z-index: 60; }
 .burger span {
@@ -432,16 +421,19 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 .catalog__more { display: flex; justify-content: center; margin-top: 40px; }
 .catalog__more[hidden] { display: none; }
 
-.custom { background: var(--beige); }
+.custom { background: var(--ivory); }
 .custom-cta {
-  position: relative; overflow: hidden;
   display: flex; align-items: center; justify-content: space-between; gap: 40px;
   padding: clamp(36px, 8vh, 88px) clamp(32px, 5vw, 72px);
   border-radius: calc(var(--radius) + 6px);
-  background: var(--green);
-  color: rgba(241,235,225,.8);
+  border: 1px solid var(--sand);
+  /* sama dengan latar section Pemesanan & Konsultasi (.closing) */
+  background:
+    radial-gradient(ellipse at 50% 120%, rgba(181,101,62,.14), transparent 60%),
+    var(--beige);
+  color: var(--muted);
 }
-.custom-cta h2 { font-family: var(--font-display); font-size: clamp(30px, 3.6vw, 52px); font-weight: 600; line-height: 1.15; color: var(--beige); margin-bottom: 10px; }
+.custom-cta h2 { font-family: var(--font-display); font-size: clamp(30px, 3.6vw, 52px); font-weight: 600; line-height: 1.15; color: var(--ink); margin-bottom: 10px; }
 .custom-cta .eyebrow { margin-bottom: 12px; }
 .custom-cta p:not(.eyebrow) { max-width: 600px; font-size: 17px; }
 
@@ -691,7 +683,7 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   .nav__link:hover, .nav__link.is-active { background: var(--beige); color: var(--green); }
   .nav__drop-toggle { display: flex; width: 100%; align-items: center; justify-content: center; }
   .nav__sub {
-    position: static; min-width: 0; padding: 0; background: none; box-shadow: none; border-radius: 0;
+    position: static; min-width: 0; padding: 0; background: none; box-shadow: none; border: 0; border-radius: 0;
     opacity: 1; visibility: visible; transform: none;
     display: grid; grid-template-columns: 1fr 1fr; gap: 10px;
     max-height: 0; overflow: hidden; transition: max-height .35s var(--ease), margin .35s var(--ease);
@@ -700,8 +692,6 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
   .nav__sub li { opacity: 1; transform: none; }
   .nav__drop.is-open .nav__sub { max-height: 90px; margin: 6px 0 10px; transform: none; transition: max-height .35s var(--ease), margin .35s var(--ease); }
   .nav__sublink { justify-content: center; padding: 11px 12px; border-radius: 12px; border: 1px solid var(--sand); font-size: 15px; }
-  .nav__sublink::after { display: none; }
-  .nav__sublink:hover { padding-left: 12px; }
 
   /* logo & tombol tutup tetap terlihat di atas panel */
   .header .logo, .burger { position: relative; z-index: 60; transition: color .3s; }
@@ -757,8 +747,7 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 
   .hero { padding-bottom: 90px; }
   .hero__overlay { background: linear-gradient(0deg, rgba(18,30,24,.9) 0%, rgba(18,30,24,.7) 50%, rgba(18,30,24,.6) 100%); }
-  .hero__actions { flex-direction: column; width: 100%; }
-  .hero__actions .btn { width: 100%; }
+  .hero__actions { flex-direction: column; align-items: center; width: 100%; }
 
   .segments span { font-size: 11.5px; gap: 8px; }
   .segments strong { font-size: 25px; }
@@ -782,13 +771,12 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 
   .custom-cta { align-items: center; text-align: center; }
   .custom-cta p:not(.eyebrow) { margin-inline: auto; }
-  .custom-cta .btn { width: 100%; }
 
   .colors__gallery { gap: 10px; grid-template-rows: repeat(6, 52px); }
 
   .steps__list { grid-template-columns: 1fr; row-gap: 48px; }
 
-  .closing .btn { width: 100%; white-space: normal; }
+  .closing .btn { white-space: normal; }
 
 
   .wa-float { right: 16px; bottom: 16px; height: 56px; padding: 0 15px; }
