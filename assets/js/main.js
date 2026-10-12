@@ -165,7 +165,7 @@
        '<div class="card__inner">' +
         '<button class="card__open" data-open="' + p.id + '" aria-label="Lihat detail ' + esc(p.name) + '"></button>' +
         '<div class="card__media" data-placeholder="' + esc(p.name) + '">' +
-          '<img src="' + esc(p.img) + '" alt="' + esc(p.name) + ' | Alengka Home Living" loading="lazy" decoding="async" width="600" height="690">' +
+          '<img src="' + esc(p.img) + '" alt="' + esc(p.name) + ' | Alengka Home Living" loading="lazy" decoding="async" width="900" height="900">' +
         '</div>' +
         '<div class="card__body">' +
           '<h3 class="card__title">' + esc(p.name) + '</h3>' +

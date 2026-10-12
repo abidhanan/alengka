@@ -375,7 +375,7 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 .card__wa:hover { transform: translateY(-3px) scale(1.1) rotate(-8deg); box-shadow: var(--shadow); }
 .card__wa:active { transform: scale(.94); transition-duration: .15s; }
 .card__media {
-  position: relative; aspect-ratio: 4 / 4.6; overflow: hidden;
+  position: relative; aspect-ratio: 1 / 1; overflow: hidden; /* foto produk persegi 900x900, produk di tengah */
   background: linear-gradient(135deg, var(--sand), var(--beige));
 }
 .card__media img {
