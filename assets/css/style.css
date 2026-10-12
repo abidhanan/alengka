@@ -537,8 +537,9 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 }
 .pd__panel {
   position: relative;
-  display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr);
-  width: min(1080px, 100%); height: min(700px, calc(100vh - 64px));
+  --pd-h: min(700px, calc(100vh - 64px), 56vw);
+  display: grid; grid-template-columns: var(--pd-h) minmax(0, 1fr);
+  width: min(calc(var(--pd-h) + 440px), 100%); height: var(--pd-h);
   background: var(--ivory); border-radius: calc(var(--radius) + 6px);
   overflow: hidden; box-shadow: 0 40px 80px -30px rgba(0,0,0,.5);
   opacity: 0; transform: translateY(24px) scale(.98);
@@ -560,8 +561,8 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 
 .pd__media { position: relative; min-height: 0; background: linear-gradient(135deg, var(--sand), var(--beige)); overflow: hidden; }
 .pd__media img { cursor: zoom-in; }
-.pd__media img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: contain; }
-.pd__media::after { /* latar blur dari foto yang sama, mengisi sisa ruang di samping foto */
+.pd__media img { position: relative; z-index: 1; width: 100%; height: 100%; object-fit: cover; } /* kotak & foto sama-sama persegi */
+.pd__media::after { /* cadangan bila ada foto yang tidak persegi */
   content: ""; position: absolute; inset: -40px; z-index: 0;
   background: var(--pd-bg, none) center / cover no-repeat;
   filter: blur(24px) brightness(.92); opacity: .9;
@@ -725,20 +726,21 @@ button { font: inherit; cursor: pointer; border: 0; background: none; color: inh
 @media (max-width: 860px) {
   .pd { padding: 0; place-items: end center; }
   .pd__panel {
-    grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr);
-    width: 100%; height: auto; max-height: 94vh; max-height: 94svh;
+    display: block; overflow-y: auto; overscroll-behavior: contain;
+    width: min(560px, 100%); height: auto; max-height: 94vh; max-height: 94svh;
     border-radius: 22px 22px 0 0;
     transform: translateY(100%);
   }
-  .pd__media { height: 36vh; height: 36svh; width: 100%; }
-  .pd__scroll { padding: 20px 20px 16px; }
-  .pd__foot { padding: 14px 20px calc(16px + env(safe-area-inset-bottom)); }
+  .pd__media { width: 100%; aspect-ratio: 1 / 1; }
+  .pd__info { display: block; }
+  .pd__scroll { overflow: visible; padding: 20px 20px 16px; }
+  .pd__foot { position: sticky; bottom: 0; z-index: 2; padding: 14px 20px calc(16px + env(safe-area-inset-bottom)); }
   .pd__cat, .pd__title { padding-right: 0; }
   .pd__cat { margin-bottom: 6px; }
   .pd__title { font-size: 26px; }
   .pd__price { margin: 14px 0 6px; padding: 12px 0; }
   .pd__price strong { font-size: 24px; }
-  .pd__close { top: 12px; right: 12px; width: 40px; height: 40px; background: rgba(250,247,242,.94); }
+  .pd__close { position: sticky; display: block; margin: 12px 12px -52px auto; top: 12px; right: auto; width: 40px; height: 40px; background: rgba(250,247,242,.94); }
   .pd__nav { width: 40px; height: 40px; }
   .pd__nav--prev { left: 12px; }
   .pd__nav--next { right: 12px; }
